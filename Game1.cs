@@ -14,6 +14,8 @@ namespace mongam_2
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferHeight = 640;
+            _graphics.PreferredBackBufferWidth = 640;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -21,8 +23,6 @@ namespace mongam_2
         protected override void Initialize()
         {
             this.Window.Title = "Checkerboard";
-            _graphics.PreferredBackBufferHeight = 640;
-            _graphics.PreferredBackBufferWidth = 640;
 
             Window.AllowUserResizing = false;
 
@@ -52,20 +52,45 @@ namespace mongam_2
         {
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
+            //squares
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    _spriteBatch.Draw(squareTex, new Vector2(((_graphics.PreferredBackBufferWidth / 4) * j), ((_graphics.PreferredBackBufferHeight / 4) * i)), Color.Black);
-                }            
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    _spriteBatch.Draw(squareTex, new Vector2(((_graphics.PreferredBackBufferWidth / 4) * j) + 80, ((_graphics.PreferredBackBufferHeight / 4) * i) + 80), Color.Black);
+                    _spriteBatch.Draw(squareTex, new Rectangle((_graphics.PreferredBackBufferWidth / 4) * j, (_graphics.PreferredBackBufferHeight / 4) * i, 80, 80), Color.Black);
                 }
             }
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    _spriteBatch.Draw(squareTex, new Rectangle(((_graphics.PreferredBackBufferWidth / 4) * j) + 80, ((_graphics.PreferredBackBufferHeight / 4) * i) + 80, 80, 80), Color.Black);
+                }
+            }
+
+            //circles left
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    _spriteBatch.Draw(circleTex, new Rectangle((_graphics.PreferredBackBufferWidth / 4) * j, (_graphics.PreferredBackBufferHeight / 4) * i, 80, 80), Color.Blue);
+                }
+                for (int j = 0; j < 4; j++)
+                {
+                    _spriteBatch.Draw(circleTex, new Rectangle(((_graphics.PreferredBackBufferWidth / 4) * j), ((_graphics.PreferredBackBufferHeight / 4) * i) + 400, 80, 80), Color.Red);
+                }
+            }
+            //circles right
+            for (int j = 0; j < 4; j++)
+            {
+                _spriteBatch.Draw(circleTex, new Rectangle(((_graphics.PreferredBackBufferWidth / 4) * j) + 80, ((_graphics.PreferredBackBufferHeight / 4)) - 80, 80, 80), Color.Blue);
+            }
+            for (int j = 0; j < 4; j++)
+            {
+                _spriteBatch.Draw(circleTex, new Rectangle(((_graphics.PreferredBackBufferWidth / 4) * j) + 80, ((_graphics.PreferredBackBufferHeight / 4)) + 320, 80, 80), Color.Red);
+            }
+
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }
